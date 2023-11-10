@@ -1,4 +1,4 @@
-package SocketServer;
+package oneToOne;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -7,7 +7,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class onetoOne2 {
+import oneToOne.onetoOne2.HandleMessages;
+
+public class oneToOne1 {
 	static Socket client;
 	static DataInputStream in;
 	static DataOutputStream out;
@@ -33,6 +35,7 @@ public class onetoOne2 {
 		}
 	};
 	
+	
 	static void close() {
 		try {
 			in.close();
@@ -48,9 +51,11 @@ public class onetoOne2 {
 	}
 	public static void main(String[] args) {
 		try {
-			System.out.println("connecting to user 1");
-			client = new Socket("127.0.0.1",5000);
-			System.out.println("connected to user 1");
+			System.out.println("waiting for user 2 to connect");
+			ss = new ServerSocket(5000);
+			Socket cl = ss.accept();
+			System.out.println("user 2 connected");
+			client = cl;
 			in = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 			out = new DataOutputStream(client.getOutputStream());
 			sysin = new Scanner(System.in);

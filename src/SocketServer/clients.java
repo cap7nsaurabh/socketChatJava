@@ -1,15 +1,16 @@
 package SocketServer;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import SocketServer.onetoOne2.HandleMessages;
 
-public class oneToOne1 {
+public class clients {
 	static Socket client;
 	static DataInputStream in;
 	static DataOutputStream out;
@@ -35,7 +36,6 @@ public class oneToOne1 {
 		}
 	};
 	
-	
 	static void close() {
 		try {
 			in.close();
@@ -51,14 +51,12 @@ public class oneToOne1 {
 	}
 	public static void main(String[] args) {
 		try {
-			System.out.println("waiting for user 2 to connect");
-			ss = new ServerSocket(5000);
-			Socket cl = ss.accept();
-			System.out.println("user 2 connected");
-			client = cl;
+			System.out.println("connecting to server");
+			client = new Socket("127.0.0.1",5000);
+			System.out.println("connected to server");
 			in = new DataInputStream(new BufferedInputStream(client.getInputStream()));
 			out = new DataOutputStream(client.getOutputStream());
-			sysin = new Scanner(System.in);
+			sysin = new Scanner(System.in); 
 			HandleMessages handleMessages = new HandleMessages();
 			Thread hm = new Thread(handleMessages);
 			hm.setDaemon(true);
